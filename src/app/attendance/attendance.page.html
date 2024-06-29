@@ -1,0 +1,28 @@
+<ion-header [translucent]="true" style="display: flex;">
+  <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+  </ion-buttons>
+  <ion-toolbar>
+    <ion-title>attendance</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div size="6" style="display: flex;justify-content: center;align-items: center;border-radius: 20px;"
+    *ngFor="let photo of photos; index as position">
+    <ion-img
+      style="height: 390px;width: 290px;display: flex;justify-content: center;align-items: center;border-radius: 20px;"
+      [src]="photo.webviewPath"></ion-img>
+  </div>
+
+
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed" style="margin-bottom:80px; display: flex;padding: 10px;">
+    <ion-fab-button (click)="addPhotoToGallery()">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+    <ion-button (click)="handleUpload()" color="success">Upload</ion-button>
+  </ion-fab>
+
+</ion-content>

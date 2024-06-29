@@ -1,0 +1,35 @@
+<ion-header [translucent]="true" style="display: flex;">
+  <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+  </ion-buttons>
+  <ion-toolbar>
+    <ion-title>Edit Contact</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+ 
+  <div style="display: flex;justify-content: center;align-items: center;height: 100%;width: 100%;">
+    <ion-card
+      style="width: 250px;height: 330px;display: flex;justify-content: center;align-items: center;flex-direction: column;border-radius: 20px;">
+      <form #form="ngForm" (ngSubmit)="handleEdit(form)">
+        <ion-card-content>
+          <ion-input label="Name" name="Name" ngModel [(ngModel)]="Name" label-placement="floating" fill="outline"
+            placeholder="Enter Name"></ion-input>
+        </ion-card-content>
+        <ion-card-content>
+          <ion-input label="Phone" name="Phone" ngModel [(ngModel)]="Phone" label-placement="floating" fill="outline"
+            placeholder="Enter Phone Number"></ion-input>
+        </ion-card-content>
+        <ion-card-content>
+          <ion-input label="Location" name="Location" ngModel [(ngModel)]="Location" label-placement="floating" fill="outline"
+            placeholder="Enter Location"></ion-input>
+        </ion-card-content>
+        <ion-card-content>
+          <ion-button type="submit" shape="round">Edit Contact</ion-button>
+        </ion-card-content>
+      </form>
+    </ion-card>
+  </div>
+  
+</ion-content>
