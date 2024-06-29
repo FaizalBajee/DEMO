@@ -1,0 +1,15 @@
+/* src/global.scss or src/app/app.scss */
+ion-content {
+    --background: #f0f0f0;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+
+  }
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
