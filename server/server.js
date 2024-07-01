@@ -3,6 +3,8 @@ var mysql = require("mysql")
 var cors = require("cors")
 var bodyParser = require("body-parser")
 var multer = require("multer")
+const path = require('path');
+const fs = require('fs')
 
 const app = express()
 app.use(cors())
@@ -21,33 +23,37 @@ const db = mysql.createConnection({
     database: "ionicdemo"
 })
 
+// Set up storage for Multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/images/')
+        cb(null, 'public/images/');
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname)
-        console.log(file.originalname)
+        cb(null, Date.now() + file.originalname + ".jpeg");
     }
-})
+});
 
-const Upload = multer({
-    storage: storage
-})
+const upload = multer({ storage: storage });
 
-
-app.post("/attendance", Upload.single("image"), async (req, res) => {
-    const { image, name } = req.body;
-    // console.log(image)
-    const sql = 'INSERT INTO `attendance`(`Name`) VALUES (?)'
-    db.query(sql, [name], (err, data) => {
-        if (err) {
-            return res.json(err)
-        }
-        else {
-            return res.json("success")
-        }
-    })
+app.post("/attendance", upload.single("image"), (req, res) => {
+    try {
+        const file = req.file;
+        console.log('File received:', file);
+        const { image } = req.body;
+        // console.log(image)
+        const sql = 'INSERT INTO `attendance`(`Name`) VALUES (?)'
+        db.query(sql, [file.filename], (err, data) => {
+            if (err) {
+                return res.json(err)
+            }
+            else {
+                return res.json("success")
+            }
+        })
+    } catch (error) {
+        console.error('Error handling file upload:', error);
+        res.status(500).json({ message: 'Error handling file upload' });
+    }
 })
 
 //login screen
@@ -121,14 +127,14 @@ app.put('/edit', (req, res) => {
 
 //leave
 
-app.post("/leave",(req,res)=>{
-    const {Date,Reason}=req.body;
-    console.log(Date,Reason)
-    const sql="INSERT INTO `leave`( `Date`, `Reason`) VALUES (?,?)"
-    db.query(sql,[Date,Reason],(err,data)=>{
-        if(err){
+app.post("/leave", (req, res) => {
+    const { Date, Reason } = req.body;
+    console.log(Date, Reason)
+    const sql = "INSERT INTO `leave`( `Date`, `Reason`) VALUES (?,?)"
+    db.query(sql, [Date, Reason], (err, data) => {
+        if (err) {
             return res.json(err)
-        }else{
+        } else {
             return res.json("Successfully update leave data")
         }
     })
