@@ -9,7 +9,9 @@
 
 <ion-content class="content">
 
-    <ion-img  *ngIf="image"
+  <capacitor-google-map id="map" #map></capacitor-google-map>
+  <button (click)="handleMap()">map</button>
+    <!-- <ion-img  *ngIf="image"
       class="img"
       [src]="image"></ion-img>
 
@@ -18,6 +20,6 @@
       <ion-icon name="camera"></ion-icon>
     </ion-fab-button>
     <ion-button (click)="handleUpload()" color="success">Upload</ion-button>
-  </ion-fab>
+  </ion-fab> -->
 
 </ion-content>
